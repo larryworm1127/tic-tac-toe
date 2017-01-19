@@ -1,5 +1,5 @@
 package org.eom.ttt_control;
 
 public enum GameState {
-	EMPTY, COMPUTER, HUMAN, DRAW, PLAYING
+    PLAYING, DRAW, COMPUTER_WIN, HUMAN_WIN
 }
