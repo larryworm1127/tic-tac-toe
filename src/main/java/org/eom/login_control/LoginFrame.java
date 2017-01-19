@@ -1,16 +1,12 @@
 package org.eom.login_control;
 
-import java.awt.Font;
+import org.eom.main.MainControl;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-
-import org.eom.main.MainControl;
+import java.io.IOException;
 
 public class LoginFrame implements ActionListener {
 
@@ -36,16 +32,16 @@ public class LoginFrame implements ActionListener {
 
     }
 
-    public void frameInit() {
+    private void frameInit() {
         // initialize frame
         frame = new JFrame("Login");
         frame.setLayout(null);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setSize(300, 300);
         frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public void buttonInit() {
+    private void buttonInit() {
         // register login button
         login = new JButton("Login");
         login.setBounds(115, 158, 85, 25);
@@ -59,7 +55,7 @@ public class LoginFrame implements ActionListener {
         frame.add(register);
     }
 
-    public void userInputFieldInit() {
+    private void userInputFieldInit() {
         // register password field
         passwordField = new JPasswordField();
         passwordField.setBounds(105, 114, 105, 22);
@@ -71,7 +67,7 @@ public class LoginFrame implements ActionListener {
         frame.add(usernameField);
     }
 
-    public void labelInit() {
+    private void labelInit() {
         // register user name label
         JLabel labelUsername = new JLabel("Username");
         labelUsername.setBounds(35, 82, 76, 16);
@@ -93,9 +89,28 @@ public class LoginFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent event) {
         if (event.getSource() == login) {
-
+            loginAction();
         } else if (event.getSource() == register) {
             MainControl.register();
+        }
+    }
+
+    private void loginAction() {
+        String inputUsername = usernameField.getText();
+        String inputPassword = new String(passwordField.getPassword());
+        LoginLogic obj = new LoginLogic(inputUsername, inputPassword);
+
+        try {
+            if (obj.login()) {
+                frame.dispose();
+                MainControl.TTTGame();
+            } else {
+                JOptionPane.showMessageDialog(frame, "Incorrect Username or Password");
+                usernameField.setText("");
+                passwordField.setText("");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

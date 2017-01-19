@@ -2,14 +2,16 @@ package org.eom.main;
 
 import org.eom.login_control.LoginFrame;
 import org.eom.login_control.RegisterFrame;
+import org.eom.ttt_control.CellState;
+import org.eom.ttt_control.GameGUI;
 
 
 public class MainControl {
 
-    public static final String USERNAME_PATH = "";
-    public static final String PASSWORD_PATH = "";
+    public static final String USERNAME_PATH = "assets/login/username.txt";
+    public static final String PASSWORD_PATH = "assets/login/password.txt";
 
-    public MainControl() {
+    private MainControl() {
         login();
     }
 
@@ -22,6 +24,7 @@ public class MainControl {
     }
 
     public static void TTTGame() {
+        new GameGUI(3, CellState.COMPUTER);
     }
 
     public static void main(String[] args) {
