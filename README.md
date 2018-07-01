@@ -1,4 +1,5 @@
 # Tic Tac Toe Java Version
+[![CircleCI](https://circleci.com/gh/larryworm1127/tic-tac-toe.svg?style=svg)](https://circleci.com/gh/larryworm1127/tic-tac-toe)
 
 ## About
 This is a Java implementation of the Tic Tac Toe game. The program contains an interactive GUI
