@@ -177,24 +177,23 @@ public class GameGUI implements ActionListener {
      * @param col the column index of button clicked
      */
     private void humanMove(int row, int col) {
-        if (currentState == GameState.PLAYING && currentPlayer == humanPlayer) {
-            if (board.getCell(row, col) == CellState.EMPTY) {
-                board.setState(row, col, humanPlayer);
-                buttons[row][col].setBackground(Color.blue);
-                buttons[row][col].setEnabled(false);
-                currentPlayer = aiPlayer;
+        if (currentState.equals(GameState.PLAYING) && currentPlayer == humanPlayer && board.getCell(row, col).equals(CellState.EMPTY)) {
+            board.setState(row, col, humanPlayer);
+            buttons[row][col].setBackground(Color.blue);
+            buttons[row][col].setEnabled(false);
+            currentPlayer = aiPlayer;
 
-                GameState winner = board.checkWin();
-                if (winner != GameState.PLAYING) {
-                    gameOver(winner);
-                } else {
-                    updateStatusBar();
-                }
-
-                aiMove();
+            GameState winner = board.checkWin();
+            if (winner != GameState.PLAYING) {
+                gameOver(winner);
+            } else {
+                updateStatusBar();
             }
+
+            aiMove();
         }
     }
+
 
     /**
      * This method calls getMove() method from ComputerPlayer
@@ -202,7 +201,7 @@ public class GameGUI implements ActionListener {
      * the color of the button. It also update the state of the game
      */
     private void aiMove() {
-        if (currentState == GameState.PLAYING && currentPlayer == aiPlayer) {
+        if (currentState.equals(GameState.PLAYING) && currentPlayer == aiPlayer) {
             int[] result = computer.getMove(board, aiPlayer);
             int[] move = new int[]{result[1], result[2]};
             if (board.getCell(move[0], move[1]) == CellState.EMPTY) {
@@ -289,7 +288,7 @@ public class GameGUI implements ActionListener {
      */
     private void setDifficulty() {
         int choice = JOptionPane.showOptionDialog(frame, "Select Difficulty", "Set Difficulty",
-                JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
                 new String[]{"Easy", "Medium", "Hard"}, 1);
 
         if (choice == 0) {
